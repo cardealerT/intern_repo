@@ -1,48 +1,35 @@
-{
+{ lib, stdenv, fetchFromGitHub, rsync, perl, wget, gnused, findutils, libgcc, llvmPackages, zlib }: 
 
-  description = "test flake for kraken2";
+stdenv.mkDerivation rec {
+  pname = "kraken2";
+  version = "2.1.4";
 
-  inputs = {
-      nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-      flake-utils.url = "github:numtide/flake-utils";
+  src = fetchFromGitHub {
+    owner = "DerrickWood";
+    repo = "kraken2";
+    rev = "v2.14";
+    sha256 = "sha256-PneYibG7/u1M32f1irvBwUWyrE4gBL3evVCSj94YGQM=";
   };
 
-  outputs = {self, nixpkgs, flake-utils}:
-    flake-utils.lib.eachDefaultSystem (system:
-      let
-        pkgs = import nixpkgs { inherit system; };
-      in {
-        (
-          { lib, stdenv, fetchUrl, rsync, perl, wget, gnused, findutils, libgcc }: 
+  buildInputs = [
+    rsync
+    perl
+    wget
+    gnused
+    findutils
+    libgcc
+    llvmPackages.openmp
+    zlib
+  ];
 
-          stdenv.mkDerivation rec {
-            pname = "kraken2";
-            version = "2.1.4";
+  installPhase = ''
+    mkdir -p $out/bin
+    ./install_kraken2.sh $out/bin
+  '';
 
-            src = fetchfromGithub {
-              owner = "";
-              repo = "";
-              rev = "v${version}";
-              sha256 = "0mvqhlqax373r3l4c9jpq8dsg8xkxp4nv4mx8ivhs9gh1wnmk6ki";
-            };
-
-            buildInputs = [
-              rsync
-              perl
-              wget
-              gnused
-              findutils
-              libgcc
-            ];
-
-            meta = with lib; {
-              description = "The second version of the Kraken taxonomic sequence classification system";
-              homepage ="https://ccb.jhu.edu/software/kraken2/";
-              license = licenses.mit;
-            };
-          }
-        );
-      }
-    )
-  
+  meta = with lib; {
+    description = "The second version of the Kraken taxonomic sequence classification system";
+    homepage ="https://ccb.jhu.edu/software/kraken2/";
+    license = licenses.mit;
+  };
 }
