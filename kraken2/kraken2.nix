@@ -6,7 +6,7 @@ stdenv.mkDerivation rec {
 
   src = fetchFromGitHub {
     owner = "DerrickWood";
-    repo = "kraken2";
+    repo = pname;
     rev = "v2.14";
     sha256 = "sha256-PneYibG7/u1M32f1irvBwUWyrE4gBL3evVCSj94YGQM=";
   };
@@ -28,8 +28,13 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "The second version of the Kraken taxonomic sequence classification system";
+    description = ''
+      The second version of the Kraken taxonomic sequence classification system, 
+      using exact k-mer matches to achieve high accuracy and fast classification speeds.
+    '';
     homepage ="https://ccb.jhu.edu/software/kraken2/";
     license = licenses.mit;
+    # maintainers = [ cardealerT ]; # fix this dummy
+    platforms = platforms.unix; # <- obviously not true now is it
   };
 }
