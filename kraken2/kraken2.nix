@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, rsync, perl, wget, gnused, findutils, libgcc, llvmPackages, zlib }: 
+{ lib, stdenv, fetchFromGitHub, rsync, perl, wget, gnused, findutils, libgcc, llvmPackages, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "kraken2";
@@ -22,6 +22,11 @@ stdenv.mkDerivation rec {
     zlib
   ];
 
+  postPatch = ''
+    # Assuming the install_kraken2.sh script needs to be patched or added (Linux)
+    patchShebangs ./install_kraken2.sh
+  '';
+
   installPhase = ''
     mkdir -p $out/bin
     ./install_kraken2.sh $out/bin
@@ -32,9 +37,9 @@ stdenv.mkDerivation rec {
       The second version of the Kraken taxonomic sequence classification system, 
       using exact k-mer matches to achieve high accuracy and fast classification speeds.
     '';
-    homepage ="https://ccb.jhu.edu/software/kraken2/";
+    homepage = "https://ccb.jhu.edu/software/kraken2/";
     license = licenses.mit;
-    # maintainers = [ cardealerT ]; # fix this dummy
-    platforms = platforms.unix; # <- obviously not true now is it
+    platforms = platforms.unix;
+    maintainers = [ "cardealerT" "A1egator"];
   };
 }
