@@ -9,6 +9,9 @@ Should you wish to use this repo for your intake, fork the repository or contact
 > 
 > School: tcardillo@student.unimelb.edu.au (should I still be a student at UoM)
 
+Other Sem 1 Intake Members:
+> Alex => alexandernat@student.unimelb.edu.au
+
 Assuming the wiki they provide you with is the same as ours, you may notice it is a bit lacking on up-to-date info. Hence, please feel free to ask me any questions about the BioNix project. Being able to ask previous interns questions is something we sorely wished we had. Also just having their code to begin with would've been nice.
 
 As of writing this (May 12 2025) your next steps should be (a) getting VIRUSBreakend to work (b) pushing towards BioNix. Once Shizhe has RepeatMasker in nixpkgs and I clean up Kraken2, all your dependencies will be available to use, so this shouldn't be too difficult. 
